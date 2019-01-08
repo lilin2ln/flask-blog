@@ -9,4 +9,6 @@ class IndexView(BaseView):
 
     def get_data(self):
         return {"blog_name": "123",
-                "blog_description": "456"}
+                "blog_description": "456",
+                "author": "wi",
+                "author_introduce": "testtesttest!"}
