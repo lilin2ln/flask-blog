@@ -2,27 +2,31 @@
 # Author: LDD
 # Time: 2018/12/8 14:36
 # File: base.py.py
+from .. import basedir
 
-from babyshell.common import log
-from babyshell import conf
-import MySQLdb
+import sys
+from . import log
 
-CONF = conf.CONF
-LOG = log.create_logger(conf.DEFAULT_LOG)
+import logging
+logger = logging.getLogger(__name__)
+
+if sys.version_info < (3, 6):
+    import MySQLdb
+else:
+    import pymysql
+
 
 class Base(object):
 
     def __init__(self, table_name):
         self.table_name = table_name
+        self.logger = log.Logs()
 
-    def connect(self, db_name="babyshell"):
-        db = MySQLdb.connect(
-            "localhost",
-            "root",
-            CONF.babyshell_database_passwd,
-            db_name,
-            charset="utf8"
-        )
+    def connect(self, db_name="db_blog"):
+        if sys.version_info < (3, 6):
+            db = MySQLdb.connect("localhost", "root", "b5059507-7ab9-4e3d-963b-901ddd114e1b", db_name, charset="utf8")
+        else:
+            db = pymysql.connect("localhost", "root", "b5059507-7ab9-4e3d-963b-901ddd114e1b", db_name, charset="utf8")
         self.conn = db
 
     def insert(self, data):
@@ -44,9 +48,11 @@ class Base(object):
             try:
                 self.cursor().execute(sql)
                 self.commit()
+                self.logger.info(sql)
             except Exception as e:
                 self.rollback()
-                LOG.error("Insert into %s failed, %s" % (self.table_name, e))
+                self.logger.error("Insert into %s failed, %s, %s" % (self.table_name, e, sql))
+
                 return False
         return True
 
@@ -66,10 +72,11 @@ class Base(object):
         try:
             self.cursor().execute(sql)
             self.commit()
+            self.logger.info(sql)
         except Exception as e:
             self.rollback()
-            LOG.error("delete data from %s failed, %s" %
-                        (self.table_name, e))
+            # LOG.error("delete data from %s failed, %s" % (self.table_name, e))
+            self.logger.error("delete data from %s failed, %s, %s" % (self.table_name, e, sql))
             return False
         return True
 
@@ -95,10 +102,11 @@ class Base(object):
             try:
                 self.cursor().execute(sql)
                 self.commit()
+                self.logger.info(sql)
             except Exception as e:
                 self.rollback()
-                LOG.error("Update data from %s failed, %s" %
-                (self.table_name, e))
+                # LOG.error("Update data from %s failed, %s" % (self.table_name, e))
+                self.logger.error("Update data from %s failed, %s, %s" % (self.table_name, e, sql))
                 return False
         return True
 
@@ -127,9 +135,10 @@ class Base(object):
             c = self.cursor()
             c.execute(sql)
             results = c.fetchall()
+            self.logger.info(sql)
         except Exception as e:
-            LOG.error("Select data from %s failed, %s" %
-                      (self.table_name, e))
+            # LOG.error("Select data from %s failed, %s" % (self.table_name, e))
+            self.logger.error("Select data from %s failed, %s, %s" % (self.table_name, e, sql))
             return output
         output["valid"] = True
         output["detail"] = results

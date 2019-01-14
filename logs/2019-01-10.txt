@@ -1,0 +1,61 @@
+[2019-01-10 11:23:07] [ERROR] Exception on /auth/register [GET]
+Traceback (most recent call last):
+  File "c:\users\administrator\.virtualenvs\flask-blog-pbm-wegu\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\administrator\.virtualenvs\flask-blog-pbm-wegu\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\administrator\.virtualenvs\flask-blog-pbm-wegu\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\users\administrator\.virtualenvs\flask-blog-pbm-wegu\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "c:\users\administrator\.virtualenvs\flask-blog-pbm-wegu\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\administrator\.virtualenvs\flask-blog-pbm-wegu\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "c:\users\administrator\.virtualenvs\flask-blog-pbm-wegu\lib\site-packages\flask\views.py", line 88, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "D:\python\project\flask-blog\pages\base\views.py", line 19, in dispatch_request
+    context = self.get_data()
+  File "D:\python\project\flask-blog\pages\auth\views.py", line 21, in get_data
+    register(user)
+  File "D:\python\project\flask-blog\model\api.py", line 21, in register
+    res = user_tb.insert(data)
+  File "D:\python\project\flask-blog\model\base.py", line 45, in insert
+    value_word += "'"+data[key]+"'"
+TypeError: must be str, not list
+[2019-01-10 11:23:07] [INFO] 127.0.0.1 - - [10/Jan/2019 11:23:07] "GET /auth/register HTTP/1.1" 500 -
+[2019-01-10 11:25:33] [ERROR] Exception on /auth/register [GET]
+Traceback (most recent call last):
+  File "c:\users\administrator\.virtualenvs\flask-blog-pbm-wegu\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\administrator\.virtualenvs\flask-blog-pbm-wegu\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\administrator\.virtualenvs\flask-blog-pbm-wegu\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\users\administrator\.virtualenvs\flask-blog-pbm-wegu\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "c:\users\administrator\.virtualenvs\flask-blog-pbm-wegu\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\administrator\.virtualenvs\flask-blog-pbm-wegu\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "c:\users\administrator\.virtualenvs\flask-blog-pbm-wegu\lib\site-packages\flask\views.py", line 88, in view
+    return self.dispatch_request(*args, **kwargs)
+  File "D:\python\project\flask-blog\pages\base\views.py", line 19, in dispatch_request
+    context = self.get_data()
+  File "D:\python\project\flask-blog\pages\auth\views.py", line 22, in get_data
+    register(user)
+  File "D:\python\project\flask-blog\model\api.py", line 21, in register
+    res = user_tb.insert(data)
+  File "D:\python\project\flask-blog\model\base.py", line 45, in insert
+    value_word += "'"+data[key]+"'"
+TypeError: must be str, not list
+[2019-01-10 11:25:33] [INFO] 127.0.0.1 - - [10/Jan/2019 11:25:33] "GET /auth/register HTTP/1.1" 500 -
+[2019-01-10 11:26:31] [ERROR] Insert into user failed, (1146, "Table 'db_blog.user' doesn't exist")
+[2019-01-10 11:26:31] [INFO] 127.0.0.1 - - [10/Jan/2019 11:26:31] "GET /auth/register HTTP/1.1" 200 -
+[2019-01-10 11:28:40] [INFO] 127.0.0.1 - - [10/Jan/2019 11:28:40] "GET /auth/register HTTP/1.1" 200 -
+[2019-01-10 11:31:20] [INFO] INSERT INTO b_users(user_name,true_name,password,salt) VALUES ('test','test','pass','gyvb')
+[2019-01-10 11:31:20] [INFO] 127.0.0.1 - - [10/Jan/2019 11:31:20] "GET /auth/register HTTP/1.1" 200 -
+[2019-01-10 11:46:41] [ERROR] Insert into b_user failed, (1146, "Table 'db_blog.b_user' doesn't exist"), INSERT INTO b_user(user_name,true_name,password,salt) VALUES ('test','test','pass','fwgt')
+[2019-01-10 11:46:41] [INFO] 127.0.0.1 - - [10/Jan/2019 11:46:41] "GET /auth/register HTTP/1.1" 200 -
+[2019-01-10 14:02:24] [INFO] INSERT INTO b_users(user_name,true_name,password,salt) VALUES ('test','test','pass','rfjp')
+[2019-01-10 14:02:24] [INFO] 127.0.0.1 - - [10/Jan/2019 14:02:24] "GET /auth/register HTTP/1.1" 200 -

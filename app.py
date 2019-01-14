@@ -1,8 +1,6 @@
 #-*- coding:utf-8 -*-
 import os
 from flask import Flask
-import os
-basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 
 def create_app():
