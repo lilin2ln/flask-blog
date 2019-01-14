@@ -5,7 +5,7 @@
 from .. import basedir
 
 import sys
-from . import log
+from ..common import log
 
 import logging
 logger = logging.getLogger(__name__)
