@@ -1,10 +1,12 @@
 #-*- coding:utf-8 -*-
 import os
 from flask import Flask
-
+import sys
 
 def create_app():
     # create and configure the app
+    sys.path.append("/root") #将root路径设置为默认目录
+
     app = Flask(__name__, instance_relative_config=True)
 
     app.config.from_pyfile("config.py", silent=True)
