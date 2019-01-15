@@ -24,6 +24,22 @@ def register(data):
     return res
 
 
+def get_user_info(uid):
+    """获取用户信息
+    :param uid: 用户id
+    :return: {
+        "valid": True/False,
+        "error_msg": "",
+        "detail": {}
+    }
+    """
+    user_tb = base.Base("b_users")  # 实例化数据库操作基类
+    user_tb.connect()  # 连接数据库
+    res = user_tb.show({'uid': uid})
+    user_tb.close()  # 关闭数据库连接
+    return res
+
+
 def get_recommend_article_lists():
     """获取推荐文章的简要信息
     :return: {
