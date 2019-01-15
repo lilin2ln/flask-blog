@@ -3,7 +3,6 @@
   <aside class="l_box">
       {% include 'base_about.html' ignore missing %}
       {% include 'base_pic.html' ignore missing %}
-      {% include 'base_search.html' ignore missing %}
       {% include 'base_classify.html' ignore missing %}
       {% include 'base_tuijian.html' ignore missing %}
       {% include 'base_links.html' ignore missing %}
@@ -11,7 +10,7 @@
   <main class="r_box">
       {% for article_list in article_lists %}
         <li><i><a href="/"><img src="../../static/images/{{article_list.message}}"></a></i>
-            <h3><a href="/">{{article_list.article_title}}</a></h3>
+            <h3><a href="/article">{{article_list.article_title}}</a></h3>
             <p>{{article_list.title_fulltext}}</p>
         </li>
       {% endfor %}
