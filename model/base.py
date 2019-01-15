@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 
 if sys.version_info < (3, 6):
     import MySQLdb
+    import MySQLdb.cursors
 else:
     import pymysql
 
@@ -24,9 +25,9 @@ class Base(object):
 
     def connect(self, db_name="db_blog"):
         if sys.version_info < (3, 6):
-            db = MySQLdb.connect("localhost", "root", "b5059507-7ab9-4e3d-963b-901ddd114e1b", db_name, charset="utf8")
+            db = MySQLdb.connect("localhost", "root", "b5059507-7ab9-4e3d-963b-901ddd114e1b", db_name, charset="utf8", cursorclass=MySQLdb.cursors.DictCursor)
         else:
-            db = pymysql.connect("localhost", "root", "b5059507-7ab9-4e3d-963b-901ddd114e1b", db_name, charset="utf8")
+            db = pymysql.connect("localhost", "root", "b5059507-7ab9-4e3d-963b-901ddd114e1b", db_name, charset="utf8", cursorclass=pymysql.cursors.DictCursor)
         self.conn = db
 
     def insert(self, data):
