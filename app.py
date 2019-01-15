@@ -16,9 +16,10 @@ def create_app():
     def hello():
         return 'Hello, World!'
 
-    from .pages.auth.views import RegisterView
+
+    from .pages.auth.views import LoginView
     from .pages.index.views import IndexView
-    app.add_url_rule('/auth/register', view_func=RegisterView.as_view(name='register'))
+    app.add_url_rule('/auth/login', view_func=LoginView.as_view(name='login'))
     app.add_url_rule('/', view_func=IndexView.as_view(name='index'))
     return app
 

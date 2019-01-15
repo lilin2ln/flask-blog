@@ -4,10 +4,10 @@ from ..base.views import BaseView
 from ...model.api import register
 
 
-class RegisterView(BaseView):
+class LoginView(BaseView):
 
     def __init__(self):
-        self.template_name = "auth/register.html"
+        self.template_name = "auth/login.html"
 
     def get_data(self):
         salt = ''.join(random.sample('zyxwvutsrqponmlkjihgfedcba', 4))
