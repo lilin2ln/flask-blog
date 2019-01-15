@@ -28,8 +28,10 @@
       {% for component in components %}
         <li><a href="{{component.absolute_url}}">{{component.name}}</a></li>
       {% endfor %}
+      <li class="userinfo"><a href="auth/login" target="_blank">登录</a><span>       </span><a href="auth/login" target="_blank">注册</a></li>
     </ul>
 </nav>
+
 </header>
 <article>
     {% block content %}{% endblock %}
