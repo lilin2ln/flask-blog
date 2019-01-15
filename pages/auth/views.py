@@ -1,23 +1,20 @@
 #-*- coding:utf-8 -*-
 import random
-from ..base.views import BaseView
-from ...model.api import register
+from ..base.views import BaseMethodView
+from flask import request,redirect
 
 
-class LoginView(BaseView):
+class LoginView(BaseMethodView):
 
     def __init__(self):
         self.template_name = "auth/login.html"
 
-    def get_data(self):
-        salt = ''.join(random.sample('zyxwvutsrqponmlkjihgfedcba', 4))
-        # print(salt)
-
-        user = {
-            'user_name': 'test',
-            'true_name': 'test',
-            'password': 'pass',
-            'salt': salt
-        }
-        register(user)
-        return {"hello": "123"}
+    def post(self):
+        username = request.form.get('username')
+        password = request.form.get('password')
+        print username
+        print password
+        if username == '123' and password == '123':
+            return redirect("/")
+        else:
+            return self.render(error="username or password error，retry!")
