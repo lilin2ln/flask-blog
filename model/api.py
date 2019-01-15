@@ -22,6 +22,42 @@ def register(data):
     user_tb.close() #关闭数据库连接
     return res
 
+def get_article_classify():
+    """获取文章分类简要信息
+    :return: {
+        "valid": True/False,
+        "error_msg": "",
+        "detail": [{
+            "category_id": "标签ID",
+            "category_title": "标签名称",
+            "title_count": "文章数量"
+        }]
+    }
+    """
+    b_category_tb = base.Base("b_category") #实例化数据库操作基类
+    b_category_tb.connect() #连接数据库
+    res = b_category_tb.show() #执行查询操作
+    b_category_tb.close() #关闭数据库连接
+
+    category_info = []
+    if res["valid"]:
+        # NOTE: 如果从数据库获取标签列表信息成功，则给标签赋值
+        category_info = res["detail"]
+
+    # NOTE: 查询每个标签所对应的文章数
+    for category in category_info:
+        b_article_tb = base.Base("b_article") #实例化数据库操作基类
+        b_article_tb.connect() #连接数据库
+        article_res = b_article_tb.show({"category_id": category["id"]}) #根据标签ID执行查询操作
+        b_article_tb.close() #关闭数据库连接
+        if not article_res["valid"]:
+            # NOTE: 如果从数据库获取文章信息失败，则给文章数赋值为0
+            category["title_count"] = 0
+        else:
+            # NOTE: 如果从数据库获取文章信息成功，则将文章信息列表的长度赋值给文章数
+            category["title_count"] = len(article_res["detail"])
+    res["detail"] = category_info
+    return res
 
 def get_article_list():
     """获取文章列表
@@ -48,6 +84,6 @@ def get_article_list():
     b_article_tb.close() #关闭数据库连接
 
     if not res["valid"]:
-        #NOTE: 如果从数据库获取文章列表信息失败，则返回空列表
+        # NOTE: 如果从数据库获取文章列表信息失败，则返回空列表
         return []
     return res
