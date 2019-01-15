@@ -10,9 +10,11 @@
       {% include 'base_code.html' ignore missing %}
   </aside>
   <main class="r_box">
-    <li><i><a href="/"><img src="../../static/images/1.jpg"></a></i>
-      <h3><a href="/">你是什么人便会遇上什么人</a></h3>
-      <p>有时就为了一句狠话，像心头一口毒钉，永远麻痺着亲密感情交流。恶言，真要慎出，平日多誠心爱语，乃最简易之佈施。</p>
-    </li>
+      {% for article_list in article_lists %}
+        <li><i><a href="/"><img src="../../static/images/{{article_list.message}}"></a></i>
+            <h3><a href="/">{{article_list.article_title}}</a></h3>
+            <p>{{article_list.title_fulltext}}</p>
+        </li>
+      {% endfor %}
   </main>
 {% endblock %}
