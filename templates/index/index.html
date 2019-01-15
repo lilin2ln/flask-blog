@@ -10,7 +10,7 @@
   <main class="r_box">
       {% for article_list in article_lists %}
         <li><i><a href="/"><img src="../../static/images/{{article_list.message}}"></a></i>
-            <h3><a href="/article">{{article_list.article_title}}</a></h3>
+            <h3><a href="{{url_for('article', uid=article_list.uid)}}">{{article_list.article_title}}</a></h3>
             <p>{{article_list.title_fulltext}}</p>
         </li>
       {% endfor %}
