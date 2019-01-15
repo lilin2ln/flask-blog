@@ -17,4 +17,4 @@ class LoginView(BaseMethodView):
         if username == '123' and password == '123':
             return redirect("/")
         else:
-            return self.render(error="username or password error，retry!")
+            return self.render(error=1)

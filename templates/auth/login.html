@@ -14,6 +14,11 @@
     <div class="login_boder">
 
       <div class="login_padding" id="login_model">
+        {% if error %}
+          <div style="padding-left: 100px; color: red;">用户名或密码错误</div>
+        {% else %}
+          <div style="padding-left: 100px; color: green;">&#12288;</div>
+        {% endif %}
         <form action="" method="post">
           <h2>用户名</h2>
             <label>
