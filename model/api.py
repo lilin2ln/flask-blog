@@ -24,6 +24,28 @@ def register(data):
     return res
 
 
+def get_friendly_links():
+    """获取友情链接
+    :return: {
+        "valid": True/False,
+        "error_msg": "",
+        "detail": [{
+            "link_name": "链接名称",
+            "link_url": "链接url"
+        }]
+    }
+    """
+    b_friendly_link_tb = base.Base("b_friendly_link")  # 实例化数据库操作基类
+    b_friendly_link_tb.connect()  # 连接数据库
+    res = b_friendly_link_tb.show()  # 执行查询操作
+    b_friendly_link_tb.close()  # 关闭数据库连接
+
+    if not res["valid"]:
+        # NOTE: 如果从数据库获取友情链接列表信息失败，则返回空列表
+        return {"detail": []}
+    return res
+
+
 def get_user_info(uid):
     """获取用户信息
     :param uid: 用户id

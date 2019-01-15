@@ -23,10 +23,15 @@ class IndexView(BaseView):
         article_tuijian_res = api.get_recommend_article_lists()
         article_tuijians = article_tuijian_res["detail"]
 
+        # NOTE: 获取友情链接列表
+        friendly_link_res = api.get_friendly_links()
+        friendly_links = friendly_link_res["detail"]
+
         return {"blog_name": "123",
                 "blog_description": "456",
                 "author": "wi",
                 "author_introduce": "testtesttest!",
                 "article_lists": article_lists,
                 "article_classifies": article_classifies,
-                "article_tuijians": article_tuijians}
+                "article_tuijians": article_tuijians,
+                "friendly_links": friendly_links}
