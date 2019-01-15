@@ -18,16 +18,9 @@
   <nav><div class="logo"><a href="/">{{blog_name}}</a></div>
     <h2 id="mnavh"><span class="navicon"></span></h2>
     <ul id="starlist">
-      <li><a href="index.html">网站首页</a></li>
+      <li><a href="\">网站首页</a></li>
       <li><a href="share.html">我的相册</a></li>
-      <li><a href="list.html">我的日记</a></li>
       <li><a href="about.html">关于我</a></li>
-      <li><a href="gbook.html">留言</a></li>
-      <li><a href="info.html">内容页</a></li>
-      <li><a href="infopic.html">内容页</a></li>
-      {% for component in components %}
-        <li><a href="{{component.absolute_url}}">{{component.name}}</a></li>
-      {% endfor %}
     </ul>
 </nav>
 
@@ -36,7 +29,7 @@
     {% block content %}{% endblock %}
 </article>
 <footer>
-  <p>Design by <a href="https://www.baidu.com" target="_blank">{{blog_name}}</a> <a href="/">蜀ICP备11002373号-1</a></p>
+  <p>Design by <a href="\" target="_blank">{{blog_name}}</a></p>
 </footer>
 <a href="#" class="cd-top">Top</a>
 </body>
