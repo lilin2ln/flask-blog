@@ -27,10 +27,15 @@ class IndexView(BaseView):
         friendly_link_res = api.get_friendly_links()
         friendly_links = friendly_link_res["detail"]
 
-        return {"blog_name": "123",
-                "blog_description": "456",
-                "author": "wi",
-                "author_introduce": "testtesttest!",
+        # NOTE: 获取用户信息
+        user_info_res = api.get_user_info("23")
+        user_info = user_info_res["detail"][0]
+
+        print user_info
+        return {"blog_name": user_info["true_name"]+u"的博客",
+                "blog_description": user_info["description"],
+                "author": user_info["true_name"],
+                "author_introduce": user_info["description"],
                 "article_lists": article_lists,
                 "article_classifies": article_classifies,
                 "article_tuijians": article_tuijians,
