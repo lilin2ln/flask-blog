@@ -17,17 +17,31 @@ else:
     import pymysql
 
 
-class Base(object):
+class Model(object):
 
     def __init__(self, table_name):
-        self.table_name = table_name
-        self.logger = log.Logs()
-
-    def connect(self, db_name="db_blog"):
         if sys.version_info < (3, 6):
-            db = MySQLdb.connect("localhost", "root", "b5059507-7ab9-4e3d-963b-901ddd114e1b", db_name, charset="utf8", cursorclass=MySQLdb.cursors.DictCursor)
+            db = MySQLdb.connect("localhost", "root", "b5059507-7ab9-4e3d-963b-901ddd114e1b", "db_blog", charset="utf8", cursorclass=MySQLdb.cursors.DictCursor)
         else:
-            db = pymysql.connect("localhost", "root", "b5059507-7ab9-4e3d-963b-901ddd114e1b", db_name, charset="utf8", cursorclass=pymysql.cursors.DictCursor)
+            db = pymysql.connect("localhost", "root", "root", "db_blog", charset="utf8", cursorclass=pymysql.cursors.DictCursor)
+        self.conn = db
+        self.logger = log.Logs()
+        self.sql = ''
+
+        self.tb_field = '*'
+        self.tb_name = table_name
+        self.tb_join = ''
+        self.tb_where = ''
+        self.tb_limit = ''
+        self.tb_order = ''
+        self.tb_group = ''
+
+    @staticmethod
+    def connect(self):
+        if sys.version_info < (3, 6):
+            db = MySQLdb.connect("localhost", "root", "b5059507-7ab9-4e3d-963b-901ddd114e1b", "db_blog", charset="utf8", cursorclass=MySQLdb.cursors.DictCursor)
+        else:
+            db = pymysql.connect("localhost", "root", "root", "db_blog", charset="utf8", cursorclass=pymysql.cursors.DictCursor)
         self.conn = db
 
     def insert(self, data):
@@ -45,14 +59,14 @@ class Base(object):
                     value_word += ","
                 key_word += key
                 value_word += "'"+data[key]+"'"
-            sql = "INSERT INTO %s(%s) VALUES (%s)" % (self.table_name, key_word, value_word)
+            sql = "INSERT INTO %s(%s) VALUES (%s)" % (self.tb_name, key_word, value_word)
             try:
                 self.cursor().execute(sql)
                 self.commit()
                 self.logger.info(sql)
             except Exception as e:
                 self.rollback()
-                self.logger.error("Insert into %s failed, %s, %s" % (self.table_name, e, sql))
+                self.logger.error("Insert into %s failed, %s, %s" % (self.tb_name, e, sql))
 
                 return False
         return True
@@ -69,7 +83,7 @@ class Base(object):
             mk_val = main_key[mk_key]
 
         sql = "DELETE FROM %s WHERE %s='%s'" % \
-                (self.table_name, mk_key, mk_val)
+                (self.tb_name, mk_key, mk_val)
         try:
             self.cursor().execute(sql)
             self.commit()
@@ -77,7 +91,7 @@ class Base(object):
         except Exception as e:
             self.rollback()
             # LOG.error("delete data from %s failed, %s" % (self.table_name, e))
-            self.logger.error("delete data from %s failed, %s, %s" % (self.table_name, e, sql))
+            self.logger.error("delete data from %s failed, %s, %s" % (self.tb_name, e, sql))
             return False
         return True
 
@@ -99,7 +113,7 @@ class Base(object):
                     key_word += ","
                 key_word += key + "=" + "'"+data[key]+"'"
             sql = "UPDATE %s SET %s WHERE %s='%s'" % \
-                  (self.table_name, key_word, mk_key, mk_val)
+                  (self.tb_name, key_word, mk_key, mk_val)
             try:
                 self.cursor().execute(sql)
                 self.commit()
@@ -107,7 +121,7 @@ class Base(object):
             except Exception as e:
                 self.rollback()
                 # LOG.error("Update data from %s failed, %s" % (self.table_name, e))
-                self.logger.error("Update data from %s failed, %s, %s" % (self.table_name, e, sql))
+                self.logger.error("Update data from %s failed, %s, %s" % (self.tb_name, e, sql))
                 return False
         return True
 
@@ -127,10 +141,9 @@ class Base(object):
                 mk_key = mk
                 mk_val = main_key[mk_key]
 
-            sql = "SELECT * FROM %s WHERE %s='%s'" % \
-                  (self.table_name, mk_key, mk_val)
+            sql = "SELECT * FROM %s WHERE %s='%s'" % (self.tb_name, mk_key, mk_val)
         else:
-            sql = "SELECT * FROM %s" % self.table_name
+            sql = "SELECT * FROM %s" % self.tb_name
 
         try:
             c = self.cursor()
@@ -139,7 +152,7 @@ class Base(object):
             self.logger.info(sql)
         except Exception as e:
             # LOG.error("Select data from %s failed, %s" % (self.table_name, e))
-            self.logger.error("Select data from %s failed, %s, %s" % (self.table_name, e, sql))
+            self.logger.error("Select data from %s failed, %s, %s" % (self.tb_name, e, sql))
             return output
         output["valid"] = True
         output["detail"] = results
@@ -212,8 +225,7 @@ class Base(object):
         return output
 
     def get_sql(self):
-        sql = 'SELECT %s FROM %s %s %s %s %s' % (
-        self.tb_field, self.tb_name, self.tb_join, self.tb_where, self.tb_limit, self.tb_group)
+        sql = 'SELECT %s FROM %s %s %s %s %s' % (self.tb_field, self.tb_name, self.tb_join, self.tb_where, self.tb_limit, self.tb_group)
         return sql
 
     def field(self, field='*'):
