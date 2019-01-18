@@ -3,7 +3,7 @@
         <h2>文章分类</h2>
         <ul>
             {% for article_classify in article_classifies %}
-                <li><a href="/">{{article_classify.category_title}}（{{article_classify.title_count}}）</a></li>
+                <li><a href="{{url_for('index', category_id=article_classify.id)}}">{{article_classify.category_title}}（{{article_classify.title_count}}）</a></li>
             {% endfor %}
         </ul>
 </div>

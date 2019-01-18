@@ -2,6 +2,7 @@
 
 from ..base.views import BaseView
 from flask_blog.model import api
+from flask import request
 
 
 class IndexView(BaseView):
@@ -14,6 +15,13 @@ class IndexView(BaseView):
         # NOTE: 获取文章列表
         article_lists_res = api.get_article_list()
         article_lists = article_lists_res["detail"]
+        if request.args.has_key("category_id"):
+            # NOTE: 如果用户点击了文章分类，则只列出对应分类的文章
+            tmp_lists = []
+            for article_list in article_lists:
+                if int(article_list["category_id"]) == int(request.args.get("category_id")):
+                    tmp_lists.append(article_list)
+            article_lists = tmp_lists
 
         # NOTE: 获取文章分类简要信息
         article_classify_res = api.get_article_classify()
@@ -31,7 +39,8 @@ class IndexView(BaseView):
         user_info_res = api.get_user_info("23")
         user_info = user_info_res["detail"][0]
 
-        print user_info
+
+
         return {"blog_name": user_info["true_name"]+u"的博客",
                 "blog_description": user_info["description"],
                 "author": user_info["true_name"],
