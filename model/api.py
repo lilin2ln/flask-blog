@@ -92,6 +92,19 @@ def get_recommend_article_lists():
     return res
 
 
+def get_category_by_id(category_id):
+    """通过标签id获取标签名称
+    :param category_id:
+    :return:
+    """
+    b_category_tb = base.Base("b_category")  # 实例化数据库操作基类
+    b_category_tb.connect()  # 连接数据库
+    res = b_category_tb.show({"id": category_id})  # 执行查询操作
+    b_category_tb.close()  # 关闭数据库连接
+
+    return res
+
+
 def get_article_classify():
     """获取文章分类简要信息
     :return: {
