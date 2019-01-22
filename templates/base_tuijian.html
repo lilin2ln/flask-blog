@@ -3,7 +3,7 @@
         <h2>站长推荐</h2>
         <ul>
             {% for article_tuijian in article_tuijians %}
-                <li><a href="{{url_for('article', uid=article_tuijian.uid)}}">{{article_tuijian.article_title}}</a></li>
+                <li><a href="{{url_for('article', id=article_tuijian.id)}}">{{article_tuijian.article_title}}</a></li>
             {% endfor %}
         </ul>
       </div>
