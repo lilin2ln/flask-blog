@@ -10,12 +10,14 @@
 <link href="../static/css/m.css" rel="stylesheet">
 <link href="../static/editor.md/css/editormd.min.css" rel="stylesheet" type="text/css" />
 <script src="../static/js/jquery.min.js" type="text/javascript"></script>
+<script src="../static/editor.md/lib/marked.min.js"></script>
+<script src="../static/editor.md/lib/prettify.min.js"></script>
 <script type="text/javascript" src="../static/editor.md/editormd.min.js"></script>
 <script type="text/javascript">
   var testEditor;
 
-  testEditor=$(function() {
-      editormd("test-editormd", {
+  $(function() {
+      testEditor = editormd("test-editormd", {
            width   : "90%",
            height  : 640,
            //markdown : md,
@@ -37,7 +39,13 @@
            saveHTMLToTextarea : true
       });
 
+      $("#get-html-btn").bind('click', function() {
+        //var article_html = testEditor.getHTML();
+      });
+
   });
+
+
 
 </script>
 <script type="text/javascript" src="../static/js/comm.js"></script>
