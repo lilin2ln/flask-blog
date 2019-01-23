@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block write_content %}
+<div class="editormd" id="test-editormd">
+    <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc"></textarea>
+    <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
+    <!-- html textarea 需要开启配置项 saveHTMLToTextarea == true -->
+    <textarea class="editormd-html-textarea" name="editorhtml"></textarea>
+</div>
+<div style="margin-right: 5%; float: right;">
+    <button class="btn-send" id="get-html-btn">发布文章</button>
+</div>
+
+{% endblock %}

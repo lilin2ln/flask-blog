@@ -46,3 +46,30 @@ footer a { color: #a5a4a4; }
     margin-left: 10%;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.05);
 }
+
+.btn-send {
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: transparent;
+    background-image: none;
+    outline: none;
+    border: 1px solid #C92027;
+    color: #C92027;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.btn-send:hover{
+    cursor: pointer;
+    background: #C92027;
+    color: #ffffff;
+    border-color: #dc3545;
+    border: 1px solid #C92027;
+}

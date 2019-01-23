@@ -13,8 +13,10 @@ def create_app():
 
     from .pages.index.views import IndexView
     from .pages.article.views import ArticleView
+    from .pages.write_article.views import WriteArticleView
     app.add_url_rule('/', view_func=IndexView.as_view(name='index'))
     app.add_url_rule('/article', view_func=ArticleView.as_view(name='article'))
+    app.add_url_rule('/write_article', view_func=WriteArticleView.as_view(name='write_article'))
     return app
 
 """
