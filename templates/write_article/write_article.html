@@ -10,4 +10,28 @@
     <button class="btn-send" id="get-html-btn">发布文章</button>
 </div>
 
+
+<div id="modal" class="modal">
+	<div class="modal-content">
+		<header class="modal-header" style="padding-left:10px;">
+			<h4>发布文章</h4>
+			<span class="close">×</span>
+		</header>
+		<div class="modal-body">
+            <div class="article-form-group">
+                文章标题：<input class="form-title-input" type="text" name="article_title" maxlength="25">
+            </div>
+            <div class="article-form-group">
+                文章标签：<select id="article-label" class="form-lable-select">
+                            <!--<option value="技术">技术</option>-->
+                            <!--<option value="生活">生活</option>-->
+                        </select>
+            </div>
+		</div>
+		<footer class="modal-footer">
+			<button id="cancel">取消</button>
+			<button id="sure">确定</button>
+		</footer>
+	</div>
+</div>
 {% endblock %}

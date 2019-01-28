@@ -13,6 +13,8 @@
 <script src="../static/editor.md/lib/marked.min.js"></script>
 <script src="../static/editor.md/lib/prettify.min.js"></script>
 <script type="text/javascript" src="../static/editor.md/editormd.min.js"></script>
+
+{% if is_write %}
 <script type="text/javascript">
   var testEditor;
 
@@ -39,8 +41,43 @@
            saveHTMLToTextarea : true
       });
 
+      var modal = document.getElementById('modal');
+      var close = document.getElementsByClassName('close')[0];
+      var cancel = document.getElementById('cancel');
+      var sid = document.getElementById("article-label");
+
       $("#get-html-btn").bind('click', function() {
         //var article_html = testEditor.getHTML();
+          $.ajax({
+    url: '/api/v1_0/article/get_label',
+    type: 'get',
+    dataType: 'json',
+    data: {
+
+    },
+    success: function(){
+        console.log(123)
+
+    },
+    error: function(){
+
+    }
+ })
+          var ops = ["1技术", "生活"];
+          for(var i=0; i<ops.length;i++){ //循环添加多个值
+            var oOption = document.createElement("OPTION");
+            oOption.value=ops[i];
+            oOption.text=ops[i];
+            sid.options.add(oOption);
+          }
+          modal.style.display = "block";
+      });
+
+      close.addEventListener('click', function(){
+        modal.style.display = "none";
+      });
+      cancel.addEventListener('click', function(){
+        modal.style.display = "none";
       });
 
   });
@@ -48,6 +85,8 @@
 
 
 </script>
+{% endif %}
+
 <script type="text/javascript" src="../static/js/comm.js"></script>
 <!--[if lt IE 9]>
 <script src="../static/js/modernizr.js"></script>

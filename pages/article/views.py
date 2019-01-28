@@ -3,6 +3,8 @@
 from ..base.views import BaseView
 from flask import request
 from flask_blog.model import api
+from ..base.views import BaseMethodView
+from flask import request,redirect
 
 from flask_blog.model import api_02
 
