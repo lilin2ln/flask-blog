@@ -48,29 +48,33 @@
 
       $("#get-html-btn").bind('click', function() {
         //var article_html = testEditor.getHTML();
+
           $.ajax({
-    url: '/api/v1_0/article/get_label',
-    type: 'get',
-    dataType: 'json',
-    data: {
+            url: '/api/v1_0/article/get_label',
+            type: 'get',
+            dataType: 'json',
+            data: {
 
-    },
-    success: function(){
-        console.log(123)
+            },
+            success: function(res){
+              var ops = [];
+              ops = res;
+              console.log(res);
+              for(var i=0; i<ops.length;i++){ //循环添加多个值
+                var oOption = document.createElement("OPTION");
+                oOption.value=ops[i].id;
+                oOption.text=ops[i].category_title;
+                sid.options.add(oOption);
+              }
+              modal.style.display = "block";
 
-    },
-    error: function(){
+            },
+            error: function(){
 
-    }
- })
-          var ops = ["1技术", "生活"];
-          for(var i=0; i<ops.length;i++){ //循环添加多个值
-            var oOption = document.createElement("OPTION");
-            oOption.value=ops[i];
-            oOption.text=ops[i];
-            sid.options.add(oOption);
-          }
-          modal.style.display = "block";
+            }
+          })
+
+
       });
 
       close.addEventListener('click', function(){
