@@ -24,6 +24,20 @@ def register(data):
     return res
 
 
+def write_article_base_info(data):
+    """将文章基本信息写入到数据库表
+    :return:
+    """
+    article_tb = base.Base("b_article")
+    article_tb.connect()
+    res = article_tb.insert(data)
+    article_detail = article_tb.show({"article_title": data["article_title"]})
+    article_tb.close()
+
+
+    return article_detail["detail"][0]["id"]
+
+
 def get_friendly_links():
     """获取友情链接
     :return: {
