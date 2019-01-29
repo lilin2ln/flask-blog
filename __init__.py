@@ -1,6 +1,7 @@
 #-*- coding:utf-8 -*-
 import os
 from flask import Flask
+from datetime import timedelta
 import os
 basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
@@ -10,12 +11,16 @@ def create_app():
     app = Flask(__name__, instance_relative_config=True)
 
     app.config.from_pyfile("config.py", silent=True)
+    app.config['SECRET_KEY'] = os.urandom(24)
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=2)
 
     from .pages.index.views import IndexView
     from .pages.article.views import ArticleView
     from .pages.write_article.views import WriteArticleView
+    from .pages.auth.views import LoginView
 
     app.add_url_rule('/', view_func=IndexView.as_view(name='index'))
+    app.add_url_rule('/login', view_func=LoginView.as_view(name='login'))
     app.add_url_rule('/article', view_func=ArticleView.as_view(name='article'))
     app.add_url_rule('/write_article', view_func=WriteArticleView.as_view(name='write_article'))
 
