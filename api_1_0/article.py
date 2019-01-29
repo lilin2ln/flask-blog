@@ -36,7 +36,7 @@ def write_article():
     if article_id == "0" or article_id == 0 or article_id:
         current_path = os.path.abspath(__file__)
         article_lib_path = "/".join(current_path.split("/")[:-2]) + "/templates/article/articles/"
-        with open(article_lib_path+str(article_id)+".html", "w") as f:
+        with open(article_lib_path+str(article_id)+".md", "w") as f:
             f.write(request.form.get("content"))
     else:
         return "fail"
