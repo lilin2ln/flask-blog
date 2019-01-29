@@ -44,10 +44,15 @@
       var modal = document.getElementById('modal');
       var close = document.getElementsByClassName('close')[0];
       var cancel = document.getElementById('cancel');
+      var sure = document.getElementById('sure');
       var sid = document.getElementById("article-label");
 
       $("#get-html-btn").bind('click', function() {
-        //var article_html = testEditor.getHTML();
+
+        var article_label = document.getElementById('article-label');
+        var article_title = document.getElementById('article-title');
+
+        article_title.value = "";
 
           $.ajax({
             url: '/api/v1_0/article/get_label',
@@ -59,7 +64,6 @@
             success: function(res){
               var ops = [];
               ops = res;
-              console.log(res);
               for(var i=0; i<ops.length;i++){ //循环添加多个值
                 var oOption = document.createElement("OPTION");
                 oOption.value=ops[i].id;
@@ -82,6 +86,43 @@
       });
       cancel.addEventListener('click', function(){
         modal.style.display = "none";
+      });
+
+      sure.addEventListener('click', function(){
+        var article_html = testEditor.getHTML();
+
+        var article_label = document.getElementById('article-label');
+        var article_title = document.getElementById('article-title');
+
+        if(!article_label.value){
+            alert("请选择一个文章标签！");
+        }
+        else if(!article_html){
+            alert("没有文章内容！")
+        }
+
+        else if(!article_title.value){
+            alert("请填写文章标题！")
+        }
+        else {
+            $.ajax({
+            url: '/api/v1_0/article/write',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                content: article_html
+            },
+            success: function(res){
+                console.log(res)
+                alert("发布文章成功！")
+            },
+            error: function(res){
+                console.log(res)
+                alert("发布文章失败！")
+            }
+          })
+            modal.style.display = "none";
+        }
       });
 
   });
