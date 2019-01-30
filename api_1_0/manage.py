@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 
-from flask import jsonify, request, url_for, g
+from flask import jsonify, request, url_for, g, session, redirect
 from . import api
 from flask_blog.model import api as model_api
 import os
@@ -60,4 +60,10 @@ def delete_link():
     res = model_api.delete_link(id)
     if not res:
         return "fail"
+    return "success"
+
+
+@api.route('/manage/logout', methods=["POST"])
+def logout():
+    session.clear()
     return "success"

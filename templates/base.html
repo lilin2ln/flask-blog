@@ -180,6 +180,11 @@
       {% for menu in menus %}
         <li><a href="{{menu.url}}">{{menu.title}}</a></li>
       {% endfor %}
+      {% if login %}
+        <li><a style="color: red;" href="javascript:void(0);" onclick="logout()">退出</a></li>
+      {% else %}
+        <li><a href="{{url_for('login')}}">登录</a></li>
+      {% endif %}
     </ul>
 </nav>
 
@@ -199,6 +204,25 @@
 <a href="#" class="cd-top">Top</a>
 </body>
 </html>
+
+<script type="text/javascript">
+    function logout() {
+        $.ajax({
+            url: '/api/v1_0/manage/logout',
+            type: 'post',
+            dataType: 'text',
+            data: {
+            },
+            success: function(res){
+                if(res === "success"){
+                    window.location.href="{{url_for('index')}}";
+                }
+            },
+            error: function(res){
+            }
+        });
+    }
+</script>
 
 {% if is_user %}
 <script type="text/javascript">

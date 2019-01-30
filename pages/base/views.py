@@ -38,6 +38,12 @@ class BaseView(View):
             return MENUS
         return load_menu
 
+    def __get_login_status(self):
+        # NOTE: 获取登录状态
+        if session.get("username"):
+            return True
+        return False
+
     def get_template_name(self):
         if not self.template_name:
             raise NotImplementedError
@@ -55,6 +61,7 @@ class BaseView(View):
         context["blog_description"] = self.user_info["description"]
         context["true_name"] = self.user_info["true_name"]
         context["menus"] = self.__get_menu()
+        context["login"] = self.__get_login_status()
         return self.render_template(context)
 
 
