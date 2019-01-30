@@ -1,8 +1,17 @@
 #-*- coding: utf-8 -*-
 from flask.views import View
 from flask.views import MethodView
-from flask import render_template
+from flask import render_template,session,redirect
 from flask_blog.model import api
+
+LOGINREQUIRED = [
+    'write_article/write_article.html',
+]
+
+MENUS = [
+    {"title": "看吗", "url": "\\", "auth": False},
+    {"title": "写吗", "url": "\\write_article", "auth": True},
+]
 
 class BaseView(View):
 
@@ -14,12 +23,25 @@ class BaseView(View):
         user_info_res = api.get_user_info("23")
         self.user_info = user_info_res["detail"][0]
 
+    def __get_menu(self):
+        # NOTE: 获取菜单
+        load_menu = []
+
+        for menu in MENUS:
+            if not menu["auth"]:
+                load_menu.append(menu)
+        if session.get("username"):
+            return MENUS
+        return load_menu
+
     def get_template_name(self):
         if not self.template_name:
             raise NotImplementedError
         return self.template_name
 
     def render_template(self, context):
+        if not session.get("username") and (self.get_template_name() in LOGINREQUIRED):
+            return redirect("/login")
         return render_template(self.get_template_name(), **context)
 
     def dispatch_request(self):
@@ -28,6 +50,7 @@ class BaseView(View):
         context["blog_name"] =  self.user_info["true_name"]+u"的博客"
         context["blog_description"] = self.user_info["description"]
         context["true_name"] = self.user_info["true_name"]
+        context["menus"] = self.__get_menu()
         return self.render_template(context)
 
 

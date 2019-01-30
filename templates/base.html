@@ -174,8 +174,9 @@
   <nav><div class="logo"><a href="/">{{blog_name}}</a></div>
     <h2 id="mnavh"><span class="navicon"></span></h2>
     <ul id="starlist">
-      <li><a href="\">看吗</a></li>
-      <li><a href="\write_article">写吗</a></li>
+      {% for menu in menus %}
+        <li><a href="{{menu.url}}">{{menu.title}}</a></li>
+      {% endfor %}
     </ul>
 </nav>
 
