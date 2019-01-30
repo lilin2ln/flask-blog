@@ -164,25 +164,7 @@
 </script>
 {% endif %}
 
-{% if is_manage %}
-    <script type="text/javascript">
-        function recommend(){
-            $.ajax({
-            url: '/api/v1_0/manage/recommend',
-            type: 'put',
-            dataType: 'json',
-            data: {
 
-            },
-            success: function(){
-            },
-            error: function(){
-
-            }
-          })
-        }
-    </script>
-{% endif %}
 
 <script type="text/javascript" src="../static/js/comm.js"></script>
 <!--[if lt IE 9]>
@@ -216,3 +198,53 @@
 <a href="#" class="cd-top">Top</a>
 </body>
 </html>
+
+{% if is_manage %}
+    <script type="text/javascript">
+        function recommend(id){
+            $.ajax({
+            url: '/api/v1_0/manage/recommend',
+            type: 'POST',
+            dataType: 'text',
+            data: {
+                action: "recommend",
+                id: id
+            },
+            success: function(res){
+                if(res === "success"){
+                    document.getElementById("recommend-"+id).style.display="none"
+                    document.getElementById("cancel-recommend-"+id).style.display=""
+                }else{
+                    alert("编辑失败，请联系管理员！")
+                }
+            },
+            error: function(res){
+                alert("编辑失败，请联系管理员！")
+            }
+          })
+        }
+
+        function cancel_recommend(id){
+            $.ajax({
+            url: '/api/v1_0/manage/recommend',
+            type: 'POST',
+            dataType: 'text',
+            data: {
+                action: "cancel",
+                id: id
+            },
+            success: function(res){
+                if(res === "success"){
+                    document.getElementById("recommend-"+id).style.display=""
+                    document.getElementById("cancel-recommend-"+id).style.display="none"
+                }else{
+                    alert("编辑失败，请联系管理员！")
+                }
+            },
+            error: function(res){
+                alert("编辑失败，请联系管理员！")
+            }
+          })
+        }
+    </script>
+{% endif %}

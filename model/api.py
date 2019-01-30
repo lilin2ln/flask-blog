@@ -24,6 +24,23 @@ def register(data):
     return res
 
 
+def change_recommend(data):
+    """改变推荐状态
+    :param data: {
+        "type": "recommend",
+        "id": "1"
+    }
+    :return:
+    """
+    article_tb = base.Base("b_article")
+    article_tb.connect()
+    if data["type"] == "recommend":
+        res = article_tb.update({"id": data["id"]}, {"is_recommend": "1"})
+    else:
+        res = article_tb.update({"id": data["id"]}, {"is_recommend": "0"})
+    return res
+
+
 def write_article_base_info(data):
     """将文章基本信息写入到数据库表
     :return:
