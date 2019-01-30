@@ -145,6 +145,7 @@
             success: function(res){
                 if(res === "success"){
                     alert("发布文章成功！")
+                    window.location.href="{{url_for('manage')}}";
                 }else{
                     alert("发布文章失败！")
                 }
