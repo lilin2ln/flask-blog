@@ -246,5 +246,28 @@
             }
           })
         }
+
+        function delete_article(id){
+            $.ajax({
+            url: '/api/v1_0/manage/delete_article',
+            type: 'POST',
+            dataType: 'text',
+            data: {
+                id: id
+            },
+            success: function(res){
+                if(res === "success"){
+                    alert("删除成功！")
+                }else{
+                    alert("删除失败！")
+                }
+                location.reload();
+            },
+            error: function(res){
+                alert("删除失败！")
+                location.reload();
+            }
+          })
+        }
     </script>
 {% endif %}

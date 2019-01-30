@@ -24,6 +24,20 @@ def register(data):
     return res
 
 
+def delete_article(data):
+    """删除文章
+    :param data:{
+        "id": "文章id"
+    }
+    :return:
+    """
+    article_tb = base.Base("b_article")
+    article_tb.connect()
+    res = article_tb.delete({"id": data["id"]})
+    article_tb.close()
+    return res
+
+
 def change_recommend(data):
     """改变推荐状态
     :param data: {
@@ -38,6 +52,7 @@ def change_recommend(data):
         res = article_tb.update({"id": data["id"]}, {"is_recommend": "1"})
     else:
         res = article_tb.update({"id": data["id"]}, {"is_recommend": "0"})
+    article_tb.close()
     return res
 
 

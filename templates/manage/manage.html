@@ -5,6 +5,7 @@
         <li>
             <h3><a href="{{url_for('article', id=article_list.id)}}">{{article_list.article_title}}</a></h3>
             <p>{{article_list.add_time}}
+                <a class="manage-group" href="javascript:void(0);" onclick="delete_article({{article_list.id}})"><span class="manage-cancel-btn">删除</span></a>
                 {% if article_list.is_recommend == 1 %}
                     <a class="manage-group" id="cancel-recommend-{{article_list.id}}" href="javascript:void(0);" onclick="cancel_recommend({{article_list.id}})"><span class="manage-cancel-btn">取消推荐</span></a>
                     <a class="manage-group" style="display: none;" id="recommend-{{article_list.id}}" href="javascript:void(0);" onclick="recommend({{article_list.id}})"><span class="manage-btn">推荐</span></a>

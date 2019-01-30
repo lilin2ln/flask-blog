@@ -18,3 +18,17 @@ def change_recommend():
     if not res:
         return "fail"
     return "success"
+
+
+@api.route('/manage/delete_article', methods=["POST"])
+def delete_article():
+    id = request.form.get("id")
+    res = model_api.delete_article({"id": id})
+    if not res:
+        return "fail"
+
+    current_path = os.path.abspath(__file__)
+    article_lib_path = "/".join(current_path.split("/")[:-2]) + "/templates/article/articles/"
+    article_path = article_lib_path + str(id) + ".md"
+    os.system("rm -rf " + article_path)
+    return "success"
