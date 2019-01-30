@@ -18,23 +18,14 @@ def create_app():
     from .pages.article.views import ArticleView
     from .pages.write_article.views import WriteArticleView
     from .pages.auth.views import LoginView
+    from .pages.manage.views import ManageView
 
     app.add_url_rule('/', view_func=IndexView.as_view(name='index'))
     app.add_url_rule('/login', view_func=LoginView.as_view(name='login'))
     app.add_url_rule('/article', view_func=ArticleView.as_view(name='article'))
     app.add_url_rule('/write_article', view_func=WriteArticleView.as_view(name='write_article'))
+    app.add_url_rule('/manage', view_func=ManageView.as_view(name='manage'))
 
     from .api_1_0 import api as api_1_0_blueprint    # 注册api蓝图
     app.register_blueprint(api_1_0_blueprint, url_prefix='/api/v1_0')
     return app
-
-"""
-页面权限控制
-0: 管理员
-1: 用户
-2: 所有用户
-"""
-permission = {
-    "auth": "2",
-    "index": "2"
-}

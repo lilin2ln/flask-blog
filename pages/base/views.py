@@ -11,6 +11,7 @@ LOGINREQUIRED = [
 MENUS = [
     {"title": "看吗", "url": "\\", "auth": False},
     {"title": "写吗", "url": "\\write_article", "auth": True},
+    {"title": "管吗", "url": "\\manage", "auth": False},
 ]
 
 class BaseView(View):

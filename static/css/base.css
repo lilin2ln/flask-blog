@@ -193,3 +193,25 @@ footer a { color: #a5a4a4; }
 .article-form-group {
     margin-top:10px;
 }
+
+.manage_box {
+    overflow: hidden;
+    width: 100%;
+    float: right;
+    display: block;
+}
+
+.manage-btn {
+    color: #349EDF;
+    cursor: pointer;
+}
+
+.manage-cancel-btn {
+    color: #CA0C16;
+    cursor: pointer;
+}
+
+.manage-group {
+    float: right;
+    margin-right: 10px;
+}

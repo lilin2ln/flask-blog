@@ -164,6 +164,26 @@
 </script>
 {% endif %}
 
+{% if is_manage %}
+    <script type="text/javascript">
+        function recommend(){
+            $.ajax({
+            url: '/api/v1_0/manage/recommend',
+            type: 'put',
+            dataType: 'json',
+            data: {
+
+            },
+            success: function(){
+            },
+            error: function(){
+
+            }
+          })
+        }
+    </script>
+{% endif %}
+
 <script type="text/javascript" src="../static/js/comm.js"></script>
 <!--[if lt IE 9]>
 <script src="../static/js/modernizr.js"></script>

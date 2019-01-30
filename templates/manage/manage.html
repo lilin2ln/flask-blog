@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <main class="r_box" style="width: 100%;">
+      {% for article_list in article_lists %}
+        <li>
+            <h3><a href="{{url_for('article', id=article_list.id)}}">{{article_list.article_title}}</a></h3>
+            <p>{{article_list.add_time}}
+                <a class="manage-group"><span class="manage-btn">推荐</span></a>
+                <a class="manage-group"><span class="manage-cancel-btn">取消推荐</span></a>
+            </p>
+
+        </li>
+      {% endfor %}
+  </main>
+{% endblock %}
