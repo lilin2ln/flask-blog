@@ -200,6 +200,60 @@
 </body>
 </html>
 
+{% if is_user %}
+<script type="text/javascript">
+
+    function edit_user(){
+        var modal = document.getElementById('edit-modal');
+        var close = document.getElementsByClassName('close')[0];
+        var cancel = document.getElementById('edit-cancel');
+        var sure = document.getElementById('edit-sure');
+        modal.style.display = "block";
+
+        close.addEventListener('click', function(){
+            modal.style.display = "none";
+        });
+        cancel.addEventListener('click', function(){
+            modal.style.display = "none";
+        });
+        sure.addEventListener('click', function(){
+            var username = document.getElementById('user-name');
+            var blog_description = document.getElementById('blog-description');
+
+            if(!username.value){
+                alert("请填写用户名称！");
+            }
+            else if(!blog_description.value){
+                alert("请填写博客描述！")
+            }
+            else {
+                $.ajax({
+                    url: '/api/v1_0/manage/edit_user',
+                    type: 'post',
+                    dataType: 'text',
+                    data: {
+                        username: username.value,
+                        blog_description: blog_description.value
+                    },
+                    success: function(res){
+                        if(res === "success"){
+                            alert("修改成功！")
+                        }else{
+                            alert("修改失败！")
+                        }
+                        location.reload();
+                    },
+                    error: function(res){
+                        alert("修改失败！")
+                    }
+                });
+                modal.style.display = "none";
+            }
+        });
+    }
+</script>
+{% endif %}
+
 {% if is_manage %}
     <script type="text/javascript">
         function recommend(id){

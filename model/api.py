@@ -92,6 +92,22 @@ def get_friendly_links():
     return res
 
 
+def edit_user(data):
+    """修改用户信息
+    :param data: {
+        "id": "用户id",
+        "true_name": "用户名称",
+        "description": "博客描述"
+    }
+    :return:
+    """
+    user_tb = base.Base("b_users")  # 实例化数据库操作基类
+    user_tb.connect()
+    res = user_tb.update({"uid": data["id"]}, {"true_name": data["true_name"], "description": data["description"]})
+    user_tb.close()
+    return res
+
+
 def get_user_info(uid):
     """获取用户信息
     :param uid: 用户id

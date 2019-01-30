@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="infosbox">
+      <div class="newsview">
+        <div class="bloginfo">
+            <div class="user-nav">
+                <ul>
+                    <li>用户名称：{{true_name}}
+                        <a class="manage-group" id="edit_user" href="javascript:void(0);" onclick="edit_user()"><span class="manage-btn">修改资料</span></a>
+</li>
+                    <li>博客描述：{{blog_description}}</li>
+                </ul>
+
+
+            </div>
+            <div class="fenge-line"></div>
+            <div class="user-nav">
+                <ul>
+                    <li>友情链接：
+                        <ul>
+                            {% for friendly_link in friendly_links %}
+                                <li><a href="{{friendly_link.link_url}}">{{friendly_link.link_name}}：{{friendly_link.link_url}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+<div id="edit-modal" class="modal">
+	<div class="modal-content">
+		<header class="modal-header" style="padding-left:10px;">
+			<h4>修改资料</h4>
+			<span class="close">×</span>
+		</header>
+		<div class="modal-body">
+            <div class="article-form-group">
+                用户名称：<input class="form-title-input" type="text" id="user-name" maxlength="25">
+            </div>
+			<div class="article-form-group">
+                博客描述：<input class="form-title-input" type="text" id="blog-description" maxlength="60">
+            </div>
+		</div>
+		<footer class="modal-footer">
+			<button id="edit-cancel">取消</button>
+			<button id="edit-sure">确定</button>
+		</footer>
+	</div>
+</div>
+{% endblock %}

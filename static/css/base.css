@@ -215,3 +215,28 @@ footer a { color: #a5a4a4; }
     float: right;
     margin-right: 10px;
 }
+
+.user-nav {
+    width: 98%;
+    overflow: hidden;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.user-nav ul li {
+    width:100%;
+    display: block;
+    float: left;
+    margin-top:5px;
+}
+
+.user-nav ul li ul li{
+    margin-left:5%;
+}
+
+.fenge-line {
+    color: #ccc;
+    /* height: 1px; */
+    width: 100%;
+    border: solid 1px;
+}

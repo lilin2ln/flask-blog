@@ -7,12 +7,14 @@ from flask_blog.model import api
 LOGINREQUIRED = [
     'write_article/write_article.html',
     'manage/manage.html',
+    'user/user.html',
 ]
 
 MENUS = [
     {"title": "看吗", "url": "\\", "auth": False},
     {"title": "写吗", "url": "\\write_article", "auth": True},
     {"title": "管吗", "url": "\\manage", "auth": True},
+    {"title": "盘吗", "url": "\\user", "auth": True},
 ]
 
 class BaseView(View):

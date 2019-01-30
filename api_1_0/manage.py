@@ -32,3 +32,13 @@ def delete_article():
     article_path = article_lib_path + str(id) + ".md"
     os.system("rm -rf " + article_path)
     return "success"
+
+
+@api.route('/manage/edit_user', methods=["POST"])
+def edit_user():
+    username = request.form.get("username")
+    blog_description = request.form.get("blog_description")
+    res = model_api.edit_user({"id": 23, "true_name": username, "description": blog_description})
+    if not res:
+        return "fail"
+    return "success"
