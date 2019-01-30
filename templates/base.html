@@ -203,7 +203,78 @@
 {% if is_user %}
 <script type="text/javascript">
 
-    function edit_user(){
+    function delete_link(id){
+        $.ajax({
+            url: '/api/v1_0/manage/delete_link',
+            type: 'post',
+            dataType: 'text',
+            data: {
+                id: id
+            },
+            success: function(res){
+                if(res === "success"){
+                    location.reload();
+                }else{
+                    alert("删除失败！")
+                }
+            },
+            error: function(res){
+                alert("删除失败！")
+            }
+        });
+    }
+
+    function add_link() {
+        var modal = document.getElementById('link-modal');
+        var close = document.getElementsByClassName('close')[0];
+        var cancel = document.getElementById('link-cancel');
+        var sure = document.getElementById('link-sure');
+        modal.style.display = "block";
+
+        close.addEventListener('click', function(){
+            modal.style.display = "none";
+        });
+        cancel.addEventListener('click', function(){
+            modal.style.display = "none";
+        });
+        sure.addEventListener('click', function(){
+            var link_name = document.getElementById('link-name');
+            var link_url = document.getElementById('link-url');
+
+            if(!link_name.value){
+                alert("请填写链接名称！");
+            }
+            else if(!link_url.value){
+                alert("请填写链接url！")
+            }
+            else {
+                $.ajax({
+                    url: '/api/v1_0/manage/add_link',
+                    type: 'post',
+                    dataType: 'text',
+                    data: {
+                        link_name: link_name.value,
+                        link_url: link_url.value
+                    },
+                    success: function(res){
+                        if(res === "success"){
+                            alert("添加成功！")
+                        }else{
+                            alert("添加失败！")
+                        }
+                        location.reload();
+                    },
+                    error: function(res){
+                        alert("添加失败！")
+                    }
+                });
+                modal.style.display = "none";
+            }
+        });
+
+    }
+
+  function edit_user(){
         var modal = document.getElementById('edit-modal');
         var close = document.getElementsByClassName('close')[0];
         var cancel = document.getElementById('edit-cancel');

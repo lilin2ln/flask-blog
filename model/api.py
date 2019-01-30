@@ -3,6 +3,7 @@
 # Time: 2018/12/8 14:33
 # File: api.py
 from . import base
+import datetime
 
 
 def register(data):
@@ -68,6 +69,36 @@ def write_article_base_info(data):
 
 
     return article_detail["detail"][0]["id"]
+
+
+def add_link(data):
+    """添加友情链接
+    :param data: {
+        "link_name": "链接名称",
+        "link_url": "链接url"
+    }
+    :return:
+    """
+    link_tb = base.Base("b_friendly_link")
+    link_tb.connect()
+    res = link_tb.insert({"link_name": data["link_name"],
+                    "link_url": data["link_url"],
+                    "link_description": " ",
+                    "created_at": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')})
+    link_tb.close()
+    return res
+
+
+def delete_link(id):
+    """删除友情链接
+    :param id: 友情链接id
+    :return:
+    """
+    link_tb = base.Base("b_friendly_link")
+    link_tb.connect()
+    res = link_tb.delete({"id": str(id)})
+    link_tb.close()
+    return res
 
 
 def get_friendly_links():

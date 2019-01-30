@@ -42,3 +42,22 @@ def edit_user():
     if not res:
         return "fail"
     return "success"
+
+
+@api.route('/manage/add_link', methods=["POST"])
+def add_link():
+    link_name = request.form.get("link_name")
+    link_url = request.form.get("link_url")
+    res = model_api.add_link({"link_name": link_name, "link_url":link_url})
+    if not res:
+        return "fail"
+    return "success"
+
+
+@api.route('/manage/delete_link', methods=["POST"])
+def delete_link():
+    id = request.form.get("id")
+    res = model_api.delete_link(id)
+    if not res:
+        return "fail"
+    return "success"

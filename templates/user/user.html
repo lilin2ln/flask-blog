@@ -16,12 +16,16 @@
             <div class="fenge-line"></div>
             <div class="user-nav">
                 <ul>
-                    <li>友情链接：
+                    <li>友情链接：<a class="manage-group" id="add-link" href="javascript:void(0);" onclick="add_link()"><span class="manage-btn">添加</span></a>
+
                         <ul>
                             {% for friendly_link in friendly_links %}
-                                <li><a href="{{friendly_link.link_url}}">{{friendly_link.link_name}}：{{friendly_link.link_url}}</a></li>
+                                <li>{{friendly_link.link_name}}：{{friendly_link.link_url}}
+                                    <a style="width:10%;" class="manage-group" href="javascript:void(0);" onclick="delete_link({{friendly_link.id}})"><span class="manage-cancel-btn">删除</span></a>
+</li>
                             {% endfor %}
                         </ul>
+
                     </li>
                 </ul>
             </div>
@@ -47,6 +51,27 @@
 		<footer class="modal-footer">
 			<button id="edit-cancel">取消</button>
 			<button id="edit-sure">确定</button>
+		</footer>
+	</div>
+</div>
+
+<div id="link-modal" class="modal">
+	<div class="modal-content">
+		<header class="modal-header" style="padding-left:10px;">
+			<h4>添加友情链接</h4>
+			<span class="close">×</span>
+		</header>
+		<div class="modal-body">
+            <div class="article-form-group">
+                链接名称：<input class="form-title-input" type="text" id="link-name" maxlength="25">
+            </div>
+			<div class="article-form-group">
+                链接url：<input class="form-title-input" type="text" id="link-url" maxlength="60">
+            </div>
+		</div>
+		<footer class="modal-footer">
+			<button id="link-cancel">取消</button>
+			<button id="link-sure">确定</button>
 		</footer>
 	</div>
 </div>
